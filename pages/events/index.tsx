@@ -6,6 +6,7 @@ import { getAllEvents } from '../../helpers/api-util';
 import fs from 'fs/promises';
 import path from 'path';
 import { IEvent } from '../../types';
+import Head from 'next/head';
 
 type Props = {
   events: IEvent[];
@@ -20,6 +21,11 @@ function AllEventsPage({ events }: Props) {
 
   return (
     <>
+      <Head>
+        <title>All Events</title>
+        <meta name="description" content="Plenty of events to join" />
+      </Head>
+
       <EventsSearch onSearch={eventsSearchHandler} />
       <EventList items={events} />
     </>

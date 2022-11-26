@@ -23,7 +23,7 @@ function EventItem({ event }: Props) {
 
   return (
     <li className={classes.item}>
-      <Image src={`/${image}`} alt={title} width={500} height={300} />
+      <Image src={`/${image}`} alt={title} width={250} height={160} />
 
       <div className={classes.content}>
         <div className={classes.summary}>

@@ -9,6 +9,7 @@ import ErrorAlert from '../../components/ui/ErrorAlert';
 import { getFilteredEvents } from '../../helpers/api-util';
 import { IEvent } from '../../types';
 import { ParsedUrlQuery } from 'querystring';
+import Head from 'next/head';
 
 type Props = {};
 
@@ -86,6 +87,11 @@ function FilteredEventsPage({}: Props) {
 
   return (
     <>
+      <Head>
+        <title>Filtered Events</title>
+        <meta name="description" content="Plenty of events to join" />
+      </Head>
+
       <ResultsTitle date={dateVal} />
       <EventList items={filteredEvents} />
     </>

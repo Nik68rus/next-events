@@ -1,5 +1,4 @@
-import fs from 'fs/promises';
-import path from 'path';
+import Head from 'next/head';
 import EventList from '../components/events/EventList';
 import { getFeaturedEvents } from '../helpers/api-util';
 import { IEvent } from '../types';
@@ -11,6 +10,10 @@ type Props = {
 function HomePage({ events }: Props) {
   return (
     <div>
+      <Head>
+        <title>Next JS Events</title>
+        <meta name="description" content="Plenty of events to join" />
+      </Head>
       <EventList items={events} />
     </div>
   );

@@ -1,21 +1,28 @@
-import { useRouter } from 'next/router';
-import { isEmptyBindingElement } from 'typescript';
+import { GetStaticProps } from 'next';
+import { ParsedUrlQuery } from 'querystring';
 import EventContent from '../../components/event-detail/EventContent';
 import EventLogistics from '../../components/event-detail/EventLogistics';
 import EventSummary from '../../components/event-detail/EventSummary';
 import ErrorAlert from '../../components/ui/ErrorAlert';
-import { getEventById } from '../../dummy-data';
+import { getFeaturedEvents, getEventById } from '../../helpers/api-util';
+import { IEvent } from '../../types';
 
-type Props = {};
+type Props = {
+  event: IEvent | null;
+};
 
-function EventDetailPage({}: Props) {
-  const router = useRouter();
-  const eventId = router.query.eventId as string;
+interface Params extends ParsedUrlQuery {
+  eventId: string;
+}
 
-  const event = getEventById(eventId);
+function EventDetailPage({ event }: Props) {
+  // const router = useRouter();
+  // const eventId = router.query.eventId as string;
+
+  // const event = getEventById(eventId);
 
   if (!event) {
-    return <ErrorAlert>Event not found!</ErrorAlert>;
+    return <ErrorAlert>Loading...</ErrorAlert>;
   }
 
   return (
@@ -33,5 +40,36 @@ function EventDetailPage({}: Props) {
     </>
   );
 }
+
+export const getStaticProps: GetStaticProps<Props, Params> = async (
+  context
+) => {
+  const { eventId } = context.params!;
+  const event = await getEventById(eventId);
+
+  if (!event) {
+    return {
+      notFound: true,
+    };
+  }
+
+  return {
+    props: {
+      event,
+    },
+    revalidate: 30,
+  };
+};
+
+export const getStaticPaths = async () => {
+  const events = await getFeaturedEvents();
+  const ids = events.map((event) => event.id);
+  const paths = ids.map((id) => ({ params: { eventId: id } }));
+
+  return {
+    paths,
+    fallback: true,
+  };
+};
 
 export default EventDetailPage;

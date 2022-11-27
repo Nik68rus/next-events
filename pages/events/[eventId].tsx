@@ -4,6 +4,7 @@ import { ParsedUrlQuery } from 'querystring';
 import EventContent from '../../components/event-detail/EventContent';
 import EventLogistics from '../../components/event-detail/EventLogistics';
 import EventSummary from '../../components/event-detail/EventSummary';
+import Comments from '../../components/input/Comments';
 import ErrorAlert from '../../components/ui/ErrorAlert';
 import { getFeaturedEvents, getEventById } from '../../helpers/api-util';
 import { IEvent } from '../../types';
@@ -43,6 +44,7 @@ function EventDetailPage({ event }: Props) {
       <EventContent>
         <p>{event.description}</p>
       </EventContent>
+      <Comments eventId={event.id} />
     </>
   );
 }

@@ -1,5 +1,6 @@
 import Head from 'next/head';
 import EventList from '../components/events/EventList';
+import NewsletterRegistration from '../components/input/NewsletterRegistration';
 import { getFeaturedEvents } from '../helpers/api-util';
 import { IEvent } from '../types';
 
@@ -14,6 +15,7 @@ function HomePage({ events }: Props) {
         <title>Next JS Events</title>
         <meta name="description" content="Plenty of events to join" />
       </Head>
+      <NewsletterRegistration />
       <EventList items={events} />
     </div>
   );

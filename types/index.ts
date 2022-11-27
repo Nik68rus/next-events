@@ -8,4 +8,14 @@ interface IEvent {
   isFeatured: boolean;
 }
 
-export type { IEvent };
+interface ICommentBody {
+  email: string;
+  name: string;
+  text: string;
+}
+interface IComment extends ICommentBody {
+  _id: string;
+  eventId: string;
+}
+
+export type { IEvent, ICommentBody, IComment };
